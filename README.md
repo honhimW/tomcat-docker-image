@@ -9,3 +9,11 @@ docker build -t xxx/xxx .
 ```
 docker run -dp xxxx:8080 -v $PWD/logs:/usr/local/tomcat/logs -v $PWD/webapps:/usr/local/tomcat/webapps xxx/xxx(镜像) 
 ```
+### Docker缺点
+Linux下PID1为init进程，stop命令会传递SIGTERM到容器内PID1进程，LinuxPID 1-5为特殊进程  
+> pid=1 ：init进程，系统启动的第一个用户级进程，是所有其它进程的父进程，引导用户空间服务。  
+> pid=2 ：kthreadd：用于内核线程管理。  
+> pid=3 ：migration，用于进程在不同的CPU间迁移。  
+> pid=4 ：ksoftirqd，内核里的软中断守护线程，用于在系统空闲时定时处理软中断事务。  
+> pid=5 ：watchdog，此进程是看门狗进程，用于监听内核异常。当系统出现宕机，可以利用watchdog进程将宕机时的一些堆栈信息写入指定文件，用于事后分析宕机的原因。  
+进行JVM调优时用到的jmap、jinfo、jstat、jstack均不能访问PID 1-5的进程。
