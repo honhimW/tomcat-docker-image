@@ -17,3 +17,6 @@ Linux下PID1为init进程，stop命令会传递SIGTERM到容器内PID1进程，L
 > pid=4 ：ksoftirqd，内核里的软中断守护线程，用于在系统空闲时定时处理软中断事务。  
 > pid=5 ：watchdog，此进程是看门狗进程，用于监听内核异常。当系统出现宕机，可以利用watchdog进程将宕机时的一些堆栈信息写入指定文件，用于事后分析宕机的原因。  
 进行JVM调优时用到的jmap、jinfo、jstat、jstack均不能访问PID 1-5的进程。
+
+### 默认tomcat镜像未开启链接池，使用nio1
+修改server.xml文件下connector标签，添加连接池，改用nio2。
